@@ -41,7 +41,9 @@ app.MapGet("/yandex", () => { return Results.Challenge( new AuthenticationProper
 
 app.MapGet("/gitlab", () => { return Results.Challenge( new AuthenticationProperties() { RedirectUri = "https://localhost:7114/info" }, [ "GitLab" ]);});
 
-app.MapGet("/yahoo", () => { return Results.Challenge( new AuthenticationProperties() { RedirectUri = "https://localhost:7114/info" }, [ "Yahoo" ]);});
+app.MapGet("/yahoo", () => { return Results.Challenge( new AuthenticationProperties() { RedirectUri = "https://localhost:7114/" }, [ "Yahoo" ]);});
+
+app.MapGet("/amazon", () => { return Results.Challenge( new AuthenticationProperties() { RedirectUri = "https://localhost:7114/info" }, [ "Amazon" ]);});
 
 app.Run();
 

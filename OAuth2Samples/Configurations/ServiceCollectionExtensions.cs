@@ -21,6 +21,15 @@ public static class ServiceCollectionExtensions
                 g.CallbackPath = "/signin-gitlab";
                 g.SaveTokens = true;
             })
+			.AddAmazon("Amazon", a =>
+			{
+                a.SignInScheme = "Cookie";
+				
+                a.ClientId = configuration["OAuth2.0:Amazon:ClientId"];
+                a.ClientSecret = configuration["OAuth2.0:Amazon:ClientSecret"];
+                a.CallbackPath = "/";
+                a.SaveTokens = true;
+            })       // Worked
 			.AddYahoo("Yahoo", y =>
 			{
                 y.SignInScheme = "Cookie";
