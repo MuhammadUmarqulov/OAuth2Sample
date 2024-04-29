@@ -3,7 +3,6 @@ using OAuth2Samples;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -12,7 +11,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAuthenticationWithOAuth2Config(builder.Configuration);
 
-builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -27,27 +25,23 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapGet("/", (HttpContext ctx) =>
-{
-    return ctx.User.Claims.Select(x => new { x.Type, x.Value }).ToList();
-}); 
+app.MapGet("/", (HttpContext ctx) => { return ctx.User.Claims.Select(x => new { x.Type, x.Value }).ToList();});
 
-app.MapGet("/git-hub", () => {
-    return Results.Challenge(
-        new AuthenticationProperties()
-        {
-            RedirectUri = "https://localhost:7114/"
-        },
-        new List<string> { "GitHub" });
-});
+app.MapGet("/info", (HttpContext ctx) => { return ctx.User.Claims.Select(x => new { x.Type, x.Value }).ToList();});
 
-app.MapGet("/twitter", () => {
-    return Results.Challenge(
-        new AuthenticationProperties()
-        {
-            RedirectUri = "https://localhost:7114/"
-        },
-        new List<string> { "X" });
-});
+app.MapGet("/git-hub", () => { return Results.Challenge( new AuthenticationProperties() { RedirectUri = "https://localhost:7114/" }, [ "GitHub" ]); });
+
+app.MapGet("/twitter", () => { return Results.Challenge( new AuthenticationProperties() { RedirectUri = "https://localhost:7114/" }, [ "X" ]); });
+
+app.MapGet("/linkedin", () => { return Results.Challenge( new AuthenticationProperties() { RedirectUri = "https://localhost:7114/info" }, [ "LinkedIn" ]);});
+
+app.MapGet("/google", () => { return Results.Challenge( new AuthenticationProperties() { RedirectUri = "https://localhost:7114" }, [ "Google" ]);});
+
+app.MapGet("/yandex", () => { return Results.Challenge( new AuthenticationProperties() { RedirectUri = "https://localhost:7114/info" }, [ "Yandex" ]);});
+
+app.MapGet("/gitlab", () => { return Results.Challenge( new AuthenticationProperties() { RedirectUri = "https://localhost:7114/info" }, [ "GitLab" ]);});
+
+app.MapGet("/yahoo", () => { return Results.Challenge( new AuthenticationProperties() { RedirectUri = "https://localhost:7114/info" }, [ "Yahoo" ]);});
+
 app.Run();
 
